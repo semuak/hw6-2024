@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>JavaScript Video Controls</title>
+	<link rel="stylesheet" type="text/css" href="css/video.css">
+</head>
+<body> 
+<main>
+	<h1>JavaScript Video Controls</h1>
+	<div class = "options">
+		<button  id = "play">Play Video</button>
+		<button  id = "pause">Pause Video</button>
+		<button  id = "slower">Slow Down</button>
+		<button  id = "faster">Speed Up</button>
+		<button  id = "skip">Skip Ahead</button>
+	</div>
+
+	<figure>
+
+		<video class = "video" 
+			autoplay="false" 
+			width="640" 
+			height="360" 
+			id="player1" 
+			preload="none"
+			src="assets/marchingband.mov">
+			  
+		    <track src="captions_en.vtt" kind="captions" srclang="en" label="english_captions">	
+		  		Your browser does not support HTML5 video.
+		</video>
+		<figcaption>[The Michigan Marching Band]</figcaption>
+		</figure> 
+	<button id="mute">Mute</button><br>
+
+	<label for="slider">Volume</label>: 0 <input type="range" id="slider" min="0" max="100" value="100" step="10"> 100%<br>
+	<div>Volume is: <span id = "volume"> </span><br><br></div>
+
+	<button id = "vintage">Old School</button>
+	<button id = "orig">Original</button>
+
+	<p>Video courtesy of Allison Sweet.</p>
+
+</main>
+	<script> src="js/video.js"
+		var musicVideo = document.getElementById("player1"); //variable name for the video
+		var muteButton = document.getElementById("mute");
+		var slider = document.getElementById("slider");
+		var volumeValue = document.getElementById("volume");
+		volumeValue.innerHTML = slider.value + "%"; //original volume level
+		
+		document.getElementById("play").addEventListener("click", playVideo);
+		document.getElementById("pause").addEventListener("click", pauseVideo);
+		document.getElementById("slower").addEventListener("click", slowerVideo);
+		document.getElementById("faster").addEventListener("click", fasterVideo);
+		document.getElementById("skip").addEventListener("click", skipVideo);
+		document.getElementById("mute").addEventListener("click", muteVideo);
+		document.getElementById("vintage").addEventListener("click", vintageVideo);
+		document.getElementById("orig").addEventListener("click", originalVideo);
+		slider.addEventListener("input", updateVolume); //volume updates when slide value changes
+		
+		
+		function playVideo() {
+			musicVideo.play(); //play it
+			// return document.getElementById("volume").innerHTML = musicVideo.volume; //return volume
+			updateVolume(); // return volume
+		}
+
+		function pauseVideo(){
+			musicVideo.pause();
+		}
+
+		function slowerVideo(){
+			return console.log("Speed is", musicVideo.playbackRate *= .9);
+		}
+
+		function fasterVideo(){
+			return console.log("Speed is", musicVideo.playbackRate *= (10/9));
+		}
+		
+		function skipVideo(){
+			if (musicVideo.currentTime < musicVideo.duration){
+				return console.log("Video current time is ", musicVideo.currentTime += 10);
+			}
+
+			else{
+				musicVideo.currentTime = 0;
+			}
+		}
+
+		function muteVideo(){
+			if(musicVideo.muted === false){ //if NOT muted
+				musicVideo.muted = true; //mute
+				muteButton.innerText = "Unmute";
+				// updateVolume();
+				
+			}
+
+			else{ //if mute
+				musicVideo.muted = false; //unmute
+				muteButton.innerText = "Mute";
+				// updateVolume(); //correct volume displayed
+			}
+		}
+
+		function updateVolume(){
+			if(musicVideo.muted === false){ //if not muted
+				musicVideo.volume = slider.value/100; //slider values are whole numbers that must be converted to percentages 
+				volumeValue.innerHTML = slider.value + "%";
+			}
+			else{ //if muted
+				volumeValue.innerHTML = "0%";
+			}
+		}
+
+		function vintageVideo(){
+			const oldie = document.getElementById("player1").classList;
+			oldie.add("oldSchool");
+		}
+
+		function originalVideo(){
+			const newbie = document.getElementById("player1").classList;
+			newbie.remove("oldSchool");
+		}
+
+			
+		
+
+
+	</script>
+</body> 
+</html>
