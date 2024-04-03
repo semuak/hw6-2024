@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>JavaScript Video Controls</title>
-	<link rel="stylesheet" type="text/css" href="css/video.css">
+	<link rel="stylesheet" type="text/css" href="..css/video.css">
 </head>
 <body> 
 <main>
@@ -47,7 +47,7 @@
 		var muteButton = document.getElementById("mute");
 		var slider = document.getElementById("slider");
 		var volumeValue = document.getElementById("volume");
-		volumeValue.innerHTML = slider.value + "%"; //original volume level
+		//volumeValue.innerHTML = slider.value + "%"; //original volume level
 		
 		document.getElementById("play").addEventListener("click", playVideo);
 		document.getElementById("pause").addEventListener("click", pauseVideo);
@@ -104,13 +104,13 @@
 		}
 
 		function updateVolume(){
-			if(musicVideo.muted === false){ //if not muted
+			// if(musicVideo.muted === false){ //if not muted
 				musicVideo.volume = slider.value/100; //slider values are whole numbers that must be converted to percentages 
 				volumeValue.innerHTML = slider.value + "%";
-			}
-			else{ //if muted
-				volumeValue.innerHTML = "0%";
-			}
+			// }
+			// else{ //if muted
+			// 	volumeValue.innerHTML = "0%";
+			// }
 		}
 
 		function vintageVideo(){
